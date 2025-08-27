@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family:fantasy;
+    min-height: 100vh;
+    background: 
+    linear-gradient(222deg, rgba(0, 255, 255, 0.8), rgba(255, 0, 0, 0) 60%),
+    linear-gradient(111deg, rgb(162, 0, 255), rgba(0, 255, 0, 0) 60%),
+    linear-gradient(333deg, rgba(234, 0, 255, 0.8), rgba(0, 0, 255, 0) 60%);
+    background-attachment: fixed;
+}
+
+button{
+    cursor: pointer;
+}
