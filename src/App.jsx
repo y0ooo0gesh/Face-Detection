@@ -8,7 +8,6 @@ import Rank from '../components/Rank/Rank'
 import Background from '../components/Background/InteractiveBack'
 import SignIn from '../components/SignIn/SignIn'
 import RegisterForm from '../components/RegisterForm/RegisterForm'
-// import { getFaceData } from './clarifai'
 
 function App() {
   const [input, setInput] = useState("");
@@ -16,6 +15,23 @@ function App() {
   const [box, setbox] = useState({});
   const [route, setroute] = useState("SignIn");
   const [isSignedIn, setisSignedIn] = useState(false);
+  const [userInfo, setuserInfo] = useState({
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  })
+
+  const loadUser = (Info) =>{
+    setuserInfo({
+      id: Info.id,
+      name: Info.name,
+      email: Info.email,
+      entries: Info.entries,
+      joined: Info.joined
+    })
+  }
 
   const calculateFaceLocation = (data) =>{
     const face = data.outputs?.[0]?.data?.regions?.[0]?.region_info?.bounding_box;
@@ -50,7 +66,21 @@ function App() {
     });
 
   const data = await response.json();
-
+  if(response){
+    fetch("http://localhost:5001/image", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: userInfo.id
+      })
+    })
+      .then(response => response.json())
+      .then(count => {
+        setuserInfo(prev =>
+          Object.assign({}, prev , {entries : count})
+        );
+      })
+  }
   displayface(calculateFaceLocation(data)); 
   } 
   catch (err) {
@@ -75,14 +105,14 @@ function App() {
       <Logo />
         {route === 'Home' 
           ? <div>
-              <Rank />
+              <Rank name={userInfo.name} entries={userInfo.entries} />
               <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
               <FaceRecognition box={box} imageUrl={imageUrl}/>
             </div>
           : (
             route === 'SignIn'
-            ? <SignIn onRouteChange={onRouteChange}/>
-            : <RegisterForm onRouteChange={onRouteChange}/>
+            ? <SignIn loadUser={loadUser} onRouteChange={onRouteChange}/>
+            : <RegisterForm loadUser={loadUser} onRouteChange={onRouteChange}/>
           ) 
         }
       <Background className="particles" />
