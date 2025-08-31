@@ -31,7 +31,7 @@ function App() {
     setbox({});
     setroute("SignIn");
     setisSignedIn(false);
-    setuserInfo(initialUserInfo);
+    setuserInfo(initialState);
   }
 
   const loadUser = (Info) =>{
