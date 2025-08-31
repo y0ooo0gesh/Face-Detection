@@ -9,19 +9,30 @@ import Background from '../components/Background/InteractiveBack'
 import SignIn from '../components/SignIn/SignIn'
 import RegisterForm from '../components/RegisterForm/RegisterForm'
 
+const initialState = {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  };
+
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [box, setbox] = useState({});
   const [route, setroute] = useState("SignIn");
   const [isSignedIn, setisSignedIn] = useState(false);
-  const [userInfo, setuserInfo] = useState({
-    id: '',
-    name: '',
-    email: '',
-    entries: 0,
-    joined: ''
-  })
+  const [userInfo, setuserInfo] = useState(initialState);
+
+  const resetState = () =>{
+    setInput("");
+    setImageUrl("");
+    setbox({});
+    setroute("SignIn");
+    setisSignedIn(false);
+    setuserInfo(initialUserInfo);
+  }
 
   const loadUser = (Info) =>{
     setuserInfo({
@@ -30,7 +41,10 @@ function App() {
       email: Info.email,
       entries: Info.entries,
       joined: Info.joined
-    })
+    });
+      setInput('');
+      setImageUrl('');
+      setbox({});
   }
 
   const calculateFaceLocation = (data) =>{
@@ -57,14 +71,13 @@ function App() {
 
   const onButtonSubmit = async () => {
   setImageUrl(input);
-
   try {
-    const response = await fetch("http://localhost:5000/detect", {
+    const response = await fetch("http://localhost:5001/imageURL", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ imageUrl: input })
+      body: JSON.stringify({ 
+        imageUrl: input })
     });
-
   const data = await response.json();
   if(response){
     fetch("http://localhost:5001/image", {
@@ -90,7 +103,7 @@ function App() {
 
   const onRouteChange=(route)=>{
     if (route === 'SignOut'){
-      setisSignedIn(false)
+      resetState();
     } 
     else if (route === 'Home'){   
       setisSignedIn(true)
