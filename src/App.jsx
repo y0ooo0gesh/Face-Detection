@@ -114,8 +114,10 @@ function App() {
 
   return(
     <>
-      <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn}/>            
-      <Logo />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Logo />
+        <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn}/>
+      </div>  
         {route === 'Home' 
           ? <div>
               <Rank name={userInfo.name} entries={userInfo.entries} />
