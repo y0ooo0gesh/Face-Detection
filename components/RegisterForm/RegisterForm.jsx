@@ -15,7 +15,7 @@ const RegisterForm = ({ onRouteChange , loadUser }) =>{
         setusername(event.target.value);
     }
     const onSubmitRegister = () =>{
-        fetch('http://localhost:5001/register', {
+        fetch('https://face-recognition-backend-imyf.onrender.com/register', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

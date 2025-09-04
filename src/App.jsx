@@ -72,7 +72,7 @@ function App() {
   const onButtonSubmit = async () => {
   setImageUrl(input);
   try {
-    const response = await fetch("http://localhost:5001/imageURL", {
+    const response = await fetch("https://face-recognition-backend-imyf.onrender.com/imageURL", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
@@ -80,7 +80,7 @@ function App() {
     });
   const data = await response.json();
   if(response){
-    fetch("http://localhost:5001/image", {
+    fetch("https://face-recognition-backend-imyf.onrender.com/image", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
