@@ -3,7 +3,7 @@ import "./App.css"
 import Navigation from '../components/Navigation/Navigation'
 import Logo from '../components/Logo/Logo'
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm'
-import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
+import FaceDetection from '../components/FaceDetection/FaceDetection'
 import Rank from '../components/Rank/Rank'
 import Background from '../components/Background/InteractiveBack'
 import SignIn from '../components/SignIn/SignIn'
@@ -122,7 +122,7 @@ function App() {
           ? <div>
               <Rank name={userInfo.name} entries={userInfo.entries} />
               <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
-              <FaceRecognition box={box} imageUrl={imageUrl}/>
+              <FaceDetection box={box} imageUrl={imageUrl}/>
             </div>
           : (
             route === 'SignIn'

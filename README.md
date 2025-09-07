@@ -1,4 +1,4 @@
-# Face-Recognition Web App
+# Face-Detection Web App
 A full-stack web application that uses the Clarifai API to detect faces in images. The app highlights faces with a bounding box and keeps track of how many images each user has processed.
 
 ### 🚀 Features
@@ -37,5 +37,5 @@ A full-stack web application that uses the Clarifai API to detect faces in image
 -    Click Detect → The app will highlight face in the image.
 -    Your profile will update with the number of images processed.
 
-## 📸 [Demo](https://y0ooo0gesh.github.io/Face-Recognition/)
+## 📸 [Demo](https://y0ooo0gesh.github.io/Face-Detection/)
 ![Demo App](/assets/demo/demo.png "App Demo")

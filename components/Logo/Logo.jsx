@@ -1,7 +1,7 @@
 import React from "react";
 import Tilt from 'react-parallax-tilt';
 import './Logo.css'
-import face from '../../assets/icons/face-recognition.png';
+import face from '../../assets/icons/face-detection.png';
 const Logo = () =>{
     return(
     <div>
