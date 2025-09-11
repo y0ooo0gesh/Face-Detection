@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import "./App.css"
 import Navigation from '../components/Navigation/Navigation'
 import Logo from '../components/Logo/Logo'
@@ -24,6 +24,7 @@ function App() {
   const [route, setroute] = useState("SignIn");
   const [isSignedIn, setisSignedIn] = useState(false);
   const [userInfo, setuserInfo] = useState(initialState);
+  const [backendReady, setbackendReady] = useState(false);
 
   const resetState = () =>{
     setInput("");
@@ -69,6 +70,22 @@ function App() {
     setInput(event.target.value);
   }
 
+  useEffect(() =>{
+    const checkBackend = async () =>{
+      try {
+        const response = await fetch("https://face-recognition-backend-imyf.onrender.com/health");
+        const data = await response.json();
+        if(data.status === 'ok'){
+          setbackendReady(true);
+        }
+      } catch(err){
+          console.log('Backend not ready00', err);
+          setTimeout(checkBackend, 2000);
+      }
+    }
+  checkBackend();
+  },[])
+
   const onButtonSubmit = async () => {
   setImageUrl(input);
   try {
@@ -112,7 +129,9 @@ function App() {
   }
   
 
-  return(
+  return(!backendReady ? 
+    <h1 className="ma0 pa2">Loading Backend Please Wait</h1>
+    :
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Logo />
