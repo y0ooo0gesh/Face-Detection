@@ -49,11 +49,12 @@ function App() {
   }
 
   const calculateFaceLocation = (data) =>{
+    console.log(data)
     const regions = data.outputs?.[0]?.data?.regions;//Safety check
     if (!regions || regions.length === 0) {
-    console.log("No faces detected.");
-    return null; 
-  }
+      console.log("No faces detected.");
+      return null; 
+    }
     const face = regions[0].region_info.bounding_box;
     const image = document.getElementById("inputimage");
     const width = Number(image.width);
