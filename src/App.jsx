@@ -48,8 +48,12 @@ function App() {
   }
 
   const calculateFaceLocation = (data) =>{
-    console.log("Raw API Response:", data)
-    const face = data.outputs?.[0]?.data?.regions?.[0]?.region_info?.bounding_box;
+    const regions = data.outputs?.[0]?.data?.regions;
+    if (!regions || regions.length === 0) {
+      console.log("No faces detected.");
+      return null; 
+    }
+    const face = regions[0].region_info.bounding_box;
     const image = document.getElementById("inputimage");
     const width = Number(image.width);
     const height = Number(image.height);
